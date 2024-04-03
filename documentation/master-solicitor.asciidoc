@@ -228,7 +228,7 @@ A "normalized" license id might be either a SPDX-Id, a `LicenseRef`-Id or a "pse
 
 == Usage
 === Executing Solicitor
-_Solicitor_ is a standalone Java (Spring Boot) application. Prerequisite for running it is an existing Java 8 or 11 runtime environment. If you do not yet have a the _Solicitor_ executable JAR (`solicitor.jar`) you need to build it as given on the project GitHub homepage https://github.com/devonfw/solicitor .
+_Solicitor_ is a standalone Java (Spring Boot) application. Prerequisite for running it is an existing Java 11 runtime environment. If you do not yet have a the _Solicitor_ executable JAR (`solicitor.jar`) you need to build it as given on the project GitHub homepage https://github.com/devonfw/solicitor .
 
 _Solicitor_ is executed with the following command:
 
@@ -1371,6 +1371,7 @@ The following features are deprecated via the above mechanism:
 * "REGEX:" prefix notation in rule templates (use "(REGEX)" suffix instead); Stage 1 from Version 1.3.0 on; see https://github.com/devonfw/solicitor/issues/78
 * Use of `LicenseAssignmentProject.xls` decision table (use `LicenseAssignmentV2Project.xls` instead); Stage 1 from Version 1.4.0 on
 * Use of `repoType` in the configuration of readers, see <<Applications>>; Stage 1 from Version 1.14.0 on; see https://github.com/devonfw/solicitor/issues/190
+* Running Solicitor on Java 8; Stage 2 from Version 1.XX.0 on; see https://github.com/devonfw/solicitor/issues/247
 
 == Experimental Scancode Integration
 
@@ -1698,9 +1699,13 @@ Spring beans implementing this interface will be called at certain points in the
 
 [appendix]
 == Release Notes
+Changes in 1.XX.0::
+* https://github.com/devonfw/solicitor/issues/247: Running Solicitor on Java 8 is deprecated. (Stage 2 which means that by default Solicitor will abort when being run on Java 8.) See <<Feature Deprecation>> how to temporarily reactivate Java 8 support. Move to Java 11 ASAP!
+
 Changes in 1.22.0::
 * https://github.com/devonfw/solicitor/pull/243: Make sure the MavenReader is protected against XXE threats.
 * https://github.com/devonfw/solicitor/pull/244: Updated Drools rule engine to 8.44.0.Final.
+* https://github.com/devonfw/solicitor/issues/247: Running Solicitor on Java 8 is deprecated (Stage 1) and will be no longer possible soon. Move to Java 11 ASAP!
 
 Changes in 1.21.0::
 * https://github.com/devonfw/solicitor/pull/239: Improving some internal components to reduce risk of path traversal attacks in case that these components are (re)used in some webservice implementation.

@@ -60,7 +60,7 @@ public enum LogMessages {
   DEPRECATIONS_ACTIVE(42,
       "Deprecated features are available ({}). Please check if this is necessary. Look for message code '{}' to check for actually used deprecated features."), //
   UNAVAILABLE_DEPRECATED_FEATURE(43,
-      "This featue is deprecated and no longer available. Details: {}. For backward compatibility you might temporary activate it by setting '{}'."), //
+      "This feature is deprecated and no longer available. Details: {}. For backward compatibility you might temporary activate it by setting '{}'."), //
   USING_DEPRECATED_FEATURE_FORCED(44,
       "You are using a deprecated feature which is only available because you set {}. You should ASAP migrate your project as this might be unavailable in future versions. Details: {}."), //
   MISSING_INVENTORY_INPUT_FILE(45,

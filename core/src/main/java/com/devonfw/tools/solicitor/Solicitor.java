@@ -14,6 +14,7 @@ import org.springframework.stereotype.Component;
 
 import com.devonfw.tools.solicitor.SolicitorCliProcessor.CommandLineOptions;
 import com.devonfw.tools.solicitor.SolicitorSetup.ReaderSetup;
+import com.devonfw.tools.solicitor.common.DeprecationChecker;
 import com.devonfw.tools.solicitor.common.LogMessages;
 import com.devonfw.tools.solicitor.common.MavenVersionHelper;
 import com.devonfw.tools.solicitor.common.ResourceToFileCopier;
@@ -66,6 +67,9 @@ public class Solicitor {
   @Autowired
   private LifecycleListenerHolder lifecycleListenerHolder;
 
+  @Autowired
+  private DeprecationChecker deprecationChecker;
+
   private boolean tolerateMissingInput = false;
 
   @Value("${solicitor.tolerate-missing-input}")
@@ -111,6 +115,7 @@ public class Solicitor {
    */
   private void mainProcessing(CommandLineOptions clo) {
 
+    checkJavaVersion();
     ModelRoot modelRoot = this.configFactory.createConfig(clo.configUrl);
     this.lifecycleListenerHolder.modelRootInitialized(modelRoot);
     if (clo.load) {
@@ -134,6 +139,20 @@ public class Solicitor {
     }
     this.writerFacade.writeResult(modelRoot, oldModelRoot);
     this.lifecycleListenerHolder.endOfMainProcessing(modelRoot);
+  }
+
+  /**
+   * Checks the java version and possibly issue deprecation error or warning.
+   */
+  private void checkJavaVersion() {
+
+    String javaVersion = System.getProperty("java.version");
+    // we just check for the prefix "1." because from Java 9 on the version number does no longer start with "1."
+    if (javaVersion.startsWith("1.")) {
+      this.deprecationChecker.check(false,
+          "Running Solicitor on Java 8 is deprecated. Yours is '" + javaVersion + "'. Switch to Java 11!");
+    }
+
   }
 
   /**
